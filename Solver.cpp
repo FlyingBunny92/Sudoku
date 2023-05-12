@@ -30,10 +30,23 @@ int print_board(vector<int> d, int x, int y)
   return 0;
 }
 
+int complete(vector<int> d, int x, int y)
+{
+  cout << "int complete(vector<int> d, int x, int y)"  << endl;
+  int n = 0;
+  while(n < d.size()){
+    if(d[n] == 0){
+      return -1;
+    }
+    n++;
+  }
+  return 1;
+}
+
+
 int check(vector<int> d, int x, int y, int counter, int num)
 {
   cout << "int check(vector<int> d, int x, int y, int counter, int num) "  << endl;
-  exit(0);
   int row = counter / x;
   int column = counter % x;
   cout << "counter = " << counter << endl;
@@ -78,6 +91,10 @@ int solve (vector<int> d, int x, int y, int counter)
     cout << "X = " << X << endl;
   cout << "\n d[counter]: = " << d[counter] << endl;
   */
+  int finished = complete(d, x, y);
+  if(finished == 1){
+    return 1;
+  }
   if(d[counter]==0)
   {
     for(int i = 1; i < 10; i++){
@@ -86,7 +103,6 @@ int solve (vector<int> d, int x, int y, int counter)
         d[counter] = i;
         cout << "d[counter] = i \n";
         cout << "\n i : " <<  i << endl;
-        exit(0);
         solve(d, x, y, counter+1);
         print_board(d, x, y);
       }
