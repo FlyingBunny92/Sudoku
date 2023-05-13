@@ -19,7 +19,6 @@ int addition (int a, int b)
 
 int print_board(vector<int> d, int x, int y)
 {
-  cout << "\n int print_board(vector<int> d, int x, int y) \n"  << endl;
   int count = 0;
   for(int i = 0; i < y; i++){
     cout << "\n"  << endl;
@@ -32,9 +31,27 @@ int print_board(vector<int> d, int x, int y)
   return 0;
 }
 
+int print_board(vector<int> d, int x, int y, int counter)
+{
+  int count = 0;
+  for(int i = 0; i < y; i++){
+    cout << "\n"  << endl;
+    for(int j = 0; j < x; j++){
+      if(count==counter){
+        cout << "|" << d[count];
+      }else{
+        cout << " " << d[count];
+      }
+      
+      count++;
+    }
+  }
+
+  return 0;
+}
+
 int complete(vector<int> d, int x, int y)
 {
-  cout << "\n int complete(vector<int> d, int x, int y) \n"  << endl;
   int n = 0;
   while(n < d.size()){
     if(d[n] == 0){
@@ -48,29 +65,18 @@ int complete(vector<int> d, int x, int y)
 
 int check(vector<int> d, int x, int y, int counter, int num)
 {
-  cout << "\n int check(vector<int> d, int x, int y, int counter, int num) \n"  << endl;
+  cout << "\n counter:" << counter << endl;
+  cout << "\n num:" << num << endl;
+  print_board(d, x, y, counter);
   int row = counter / x;
   int column = counter % x;
-  cout << "counter = " << counter << endl;
-  cout << "x = " << x << endl;
-  cout << "y = " << y << endl;
-  cout << "row = " << row << endl;
-  cout << "column = " << column << endl;
+  // print_board(d, x, y);
   // check column
   int m = column;
   while(m < d.size()){
-    cout << "m = " << m << endl;
-    cout << "d[m] = " << d[m] << endl;
     if(d[m]==num){
-      cout << "\n error: number found already: " << d[m]  << endl;
-      cout << "\n num: " << num  << endl;
-      cout << "\n counter: " << counter  << endl;
-      cout << "\n column: " << column  << endl;
-      cout << "\n m: " << m  << endl;
-      cout << "x = " << x << endl;
-      cout << "y = " << y << endl;
-      print_board(d, x, y);
-      exit(0);
+      // print_board(d, x, y);
+      cout << "\n Return_#1 \n";
       return -1;
     }
     m = m+x;
@@ -79,40 +85,77 @@ int check(vector<int> d, int x, int y, int counter, int num)
   int n = row;
   int begin = row;
   while(n < begin+x){
-    cout << "n = " << n << endl;
-    cout << "d[n] = " << d[n] << endl;
     if(d[n]==num){
-      cout << "\n error: number found already: " << d[n]  << endl;
-      cout << "\n num: " << num  << endl;
-      cout << "\n counter: " << counter  << endl;
-      cout << "\n row: " << row  << endl;
-      cout << "\n n: " << n  << endl;
-      cout << "x = " << x << endl;
-      cout << "y = " << y << endl;
-      print_board(d, x, y);
-      exit(0);
+      // print_board(d, x, y);
+      cout << "\n Return_#2 \n";
+      cout << "\n n:" << n << endl;
+      cout << "\n d[n]:" << d[n] << endl;
+      cout << "\n num:" << num << endl;
       return -1;
     }
     n++;
+  }
+  // check box
+  int r1 = row/3;
+  int c1 = column/3;
+  int pos = r1*x + c1;
+  cout << "\n r1: " << r1  << endl;
+  cout << "\n c1 : " <<  c1 << endl;
+  cout << "\n pos : " <<  pos << endl;
+  if(d[pos]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#3 \n";
+    return -1;
+  }
+  if(d[pos+1]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#4 \n";
+    return -1;
+  }
+  if(d[pos+2]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#4 \n";
+    return -1;
+  }
+  if(d[pos+x]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#5 \n";
+    return -1;
+  }
+  if(d[pos+x+1]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#6 \n";
+    return -1;
+  }
+  if(d[pos+x+2]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#7 \n";
+    return -1;
+  }
+  if(d[pos+x+x]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#8 \n";
+    return -1;
+  }
+  if(d[pos+x+x+1]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#9 \n";
+    return -1;
+  }
+  if(d[pos+x+x+2]==num){
+    // print_board(d, x, y);
+    cout << "\n Return_#10 \n";
+    return -1;
   }
   return 1;
 }
 
 int solve (vector<int> d, int x, int y, int counter)
 {
-  cout << "\n int solve (std::vector<int> d, int i, int j) \n";
   if(counter >= d.size()){
     return 1;
   }
-  print_board(d, x, y);
-  int size = d.size();
-  /*
-  cout << "\n size of the list is : "<<size;
-  cout << "\n";
-  for(int X : d) 
-    cout << "X = " << X << endl;
-  cout << "\n d[counter]: = " << d[counter] << endl;
-  */
+  // print_board(d, x, y);
   int finished = complete(d, x, y);
   if(finished == 1){
     return 1;
@@ -123,11 +166,12 @@ int solve (vector<int> d, int x, int y, int counter)
       int result = check(d, x, y, counter, i);
       if(result == 1){
         d[counter] = i;
-        cout << "d[counter] = i \n";
-        cout << "\n i : " <<  i << endl;
-        exit(0);
+        cout << "\n \n d[counter] = i \n";
+        cout << "\n \n i : " <<  i << endl;
         solve(d, x, y, counter+1);
-        print_board(d, x, y);
+        //  print_board(d, x, y);
+      }else{
+          cout << "\n Number already found: " << i << endl;
       }
     }
   }else if(counter < d.size()){
@@ -166,8 +210,6 @@ int main () {
       cout << '\n';
       // Traverse the string
       for (int i = 0; i < myText.length(); i++) {
-          // Print current character
-          // cout<< myText[i]<< " ";
           int dig = myText[i] - '0';
           cout<< dig<< ", ";
           d.push_back(dig);
@@ -179,6 +221,7 @@ int main () {
   MyReadFile2.close();
 
   solve(d, x, y, 0);
+  print_board(d, x, y);
 
 
 }
