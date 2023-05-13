@@ -8,6 +8,8 @@ using namespace std;
 
 
 
+
+
 int addition (int a, int b)
 {
   int r;
@@ -32,7 +34,7 @@ int print_board(vector<int> d, int x, int y)
 
 int complete(vector<int> d, int x, int y)
 {
-  cout << "int complete(vector<int> d, int x, int y)"  << endl;
+  cout << "\n int complete(vector<int> d, int x, int y) \n"  << endl;
   int n = 0;
   while(n < d.size()){
     if(d[n] == 0){
@@ -46,11 +48,12 @@ int complete(vector<int> d, int x, int y)
 
 int check(vector<int> d, int x, int y, int counter, int num)
 {
-  cout << "int check(vector<int> d, int x, int y, int counter, int num) "  << endl;
+  cout << "\n int check(vector<int> d, int x, int y, int counter, int num) \n"  << endl;
   int row = counter / x;
   int column = counter % x;
   cout << "counter = " << counter << endl;
   cout << "x = " << x << endl;
+  cout << "y = " << y << endl;
   cout << "row = " << row << endl;
   cout << "column = " << column << endl;
   // check column
@@ -59,26 +62,45 @@ int check(vector<int> d, int x, int y, int counter, int num)
     cout << "m = " << m << endl;
     cout << "d[m] = " << d[m] << endl;
     if(d[m]==num){
+      cout << "\n error: number found already: " << d[m]  << endl;
+      cout << "\n num: " << num  << endl;
+      cout << "\n counter: " << counter  << endl;
+      cout << "\n column: " << column  << endl;
+      cout << "\n m: " << m  << endl;
+      cout << "x = " << x << endl;
+      cout << "y = " << y << endl;
+      print_board(d, x, y);
+      exit(0);
       return -1;
     }
     m = m+x;
   }
   // check row
   int n = row;
-  while(n < d.size()){
+  int begin = row;
+  while(n < begin+x){
     cout << "n = " << n << endl;
     cout << "d[n] = " << d[n] << endl;
     if(d[n]==num){
+      cout << "\n error: number found already: " << d[n]  << endl;
+      cout << "\n num: " << num  << endl;
+      cout << "\n counter: " << counter  << endl;
+      cout << "\n row: " << row  << endl;
+      cout << "\n n: " << n  << endl;
+      cout << "x = " << x << endl;
+      cout << "y = " << y << endl;
+      print_board(d, x, y);
+      exit(0);
       return -1;
     }
-    n = n+x;
+    n++;
   }
   return 1;
 }
 
 int solve (vector<int> d, int x, int y, int counter)
 {
-  cout << "int solve (std::vector<int> d, int i, int j)";
+  cout << "\n int solve (std::vector<int> d, int i, int j) \n";
   if(counter >= d.size()){
     return 1;
   }
@@ -103,6 +125,7 @@ int solve (vector<int> d, int x, int y, int counter)
         d[counter] = i;
         cout << "d[counter] = i \n";
         cout << "\n i : " <<  i << endl;
+        exit(0);
         solve(d, x, y, counter+1);
         print_board(d, x, y);
       }
